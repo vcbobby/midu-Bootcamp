@@ -8,7 +8,7 @@ const Description = () => {
 function App() {
     return (
         <div className="App">
-            <Saludo color="red" msj="estoy en un curso de react sin params" />
+            <Saludo color="red" msj="Se configuro mi llave ssh correctamente" />
             <Saludo color="green" msj="estoy en un curso de react sin params" />
             <Saludo
                 color="yellow"
