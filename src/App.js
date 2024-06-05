@@ -1,22 +1,65 @@
+import { useState } from 'react'
 import './App.css'
-import Saludo from './Saludo'
+import Note from './Note'
 
-const Description = () => {
-    return <h6>Bootcamp de midudev</h6>
-}
+function App(props) {
+    const [notes, setNotes] = useState(props.notes)
+    const [titleValue, setTitleValue] = useState('')
+    const [descriptionValue, setDescriptionValue] = useState('')
 
-function App() {
+    const handleTitle = (event) => {
+        const titulo = event.target.value
+        setTitleValue(titulo)
+    }
+    const handleDescription = (event) => {
+        setDescriptionValue(event.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const newId = notes.length + 1
+        const newNote = {
+            userId: 1,
+            id: newId,
+            title: titleValue,
+            body: descriptionValue,
+        }
+        setNotes([...notes, newNote])
+        setTitleValue('') // Restablece el valor del título
+        setDescriptionValue('') // Restablece el valor de la descripción
+    }
     return (
-        <div className="App">
-            <Saludo color="red" msj="Se configuro mi llave ssh correctamente" />
-            <Saludo color="green" msj="estoy en un curso de react sin params" />
-            <Saludo
-                color="yellow"
-                msj="estoy en un curso de react sin params"
-            />
-            <Saludo color="blue" msj="estoy en un curso de react sin params" />
-            <Description />
-        </div>
+        <main className="App">
+            <h1>Notes</h1>
+            {notes.length === 0 ? (
+                'No hay notas que mostrar'
+            ) : (
+                <ul>
+                    {notes.map((note) => {
+                        return (
+                            <li key={note.id}>
+                                <Note note={note} />
+                            </li>
+                        )
+                    })}
+                </ul>
+            )}
+            <form style={{ paddingBottom: '50px' }} onSubmit={handleSubmit}>
+                <input
+                    onChange={handleTitle}
+                    type="text"
+                    placeholder="Escribe el titulo de tu nota"
+                    value={titleValue}
+                />
+                <input
+                    onChange={handleDescription}
+                    type="text"
+                    placeholder="Escribe la descripcion de tu nota"
+                    value={descriptionValue}
+                />
+                <button>Crear nota</button>
+            </form>
+        </main>
     )
 }
 
