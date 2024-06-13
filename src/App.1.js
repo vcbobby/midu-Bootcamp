@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 import Note from './Note'
 import { getAllNotes } from './services/notes/getAllNotes'
 import { createNote } from './services/notes/createNote'
 
-function App() {
+export function App() {
     const [notes, setNotes] = useState([])
     const [titleValue, setTitleValue] = useState('')
     const [descriptionValue, setDescriptionValue] = useState('')
@@ -38,8 +37,8 @@ function App() {
         }
 
         createNote(newNote).then((note) => {
-            setNotes((prevNote) => prevNote.concat(note))
-            // setNotes((prevNotes) => [...prevNotes, nuevaNota])
+            // setNotes((prevNotes) => prevNotes.concat(newNote))
+            setNotes((prevNotes) => [...prevNotes, note])
         })
 
         setTitleValue('') // Restablece el valor del título
@@ -81,5 +80,3 @@ function App() {
         </main>
     )
 }
-
-export default App
